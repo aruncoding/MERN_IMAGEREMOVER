@@ -1,0 +1,19 @@
+
+.page.services-page {
+    text-align: center;
+    padding: 50px;
+    background: url('/public/images/stock4.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+    /* animation: fadeIn 1s ease-in; */
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  

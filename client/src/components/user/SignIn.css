@@ -1,0 +1,97 @@
+
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: url('/public/images/stock2.jpg') no-repeat center center fixed;
+    background-size: cover;
+    animation: fadeIn 1s ease-in;
+  }
+  
+  .auth-form, .forgot-password-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px;
+    opacity: 0;
+    animation: fadeIn 1s ease-in forwards;
+  }
+  
+  .auth-form h2, .forgot-password-container h2 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .auth-form label, .forgot-password-container label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .auth-form input, .forgot-password-container input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .auth-form input:focus, .forgot-password-container input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .auth-form button, .forgot-password-container button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .auth-form button:hover, .forgot-password-container button:hover {
+    background-color: #0056b3;
+  }
+  
+  .forgot-password {
+    color: #007bff;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .forgot-password:hover {
+    text-decoration: underline;
+  }
+  
+  .sign-up-link, .signin-link {
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .sign-up-link a, .signin-link a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .sign-up-link a:hover, .signin-link a:hover {
+    text-decoration: underline;
+  }
+  
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  

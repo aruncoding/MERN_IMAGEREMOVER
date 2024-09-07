@@ -1,0 +1,36 @@
+
+.navbar {
+    background: url('/public/images/stock.jpg') no-repeat center center;
+    background-size: cover;
+    padding: 10px;
+    color: white;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .navbar-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .navbar-menu {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    padding: 0;
+  }
+  
+  .navbar-menu li {
+    margin: 0;
+  }
+  
+  .navbar-menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
+  }
+  
+  .navbar-menu a:hover {
+    color: #ff6347;
+  }
+  
