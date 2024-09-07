@@ -1,9 +1,15 @@
 // src/components/SignIn.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './SignIn.css';
+import { useDispatch, useSelector } from "react-redux";
+import { clearErrors, login, register } from '../../actions/userAction';
 
 const SignIn = () => {
+  const dispatch = useDispatch();
+  const { error, loading, isAuthenticated } = useSelector(
+    (state) => state.user
+  );
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -21,36 +27,26 @@ const SignIn = () => {
 
   const handleSignIn = async (event) => {
     event.preventDefault();
-
     try {
-      // Make the API call
-      const response = await fetch('http://localhost:8000/api/users/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(form), // Send form data as JSON
-      });
+      const value = dispatch(login(form.Email, form.Password));
+      console.log('sdfsdfsdfsdf', value);
 
-      // Handle the response
-      if (response.ok) {
-        const data = await response.json();
-        console.log('User signed in successfully:', data);
-        if (data.status === 'success') {
-          navigate('/dashbaord'); // Navigate to services page after sign-in
-        } else {
-          alert('Sign-in failed');
-        }
-      } else {
-        const errorData = await response.json();
-        console.error('Error signing in:', errorData);
-        // Optionally show error messages to the user here
-      }
     } catch (error) {
       console.error('Network error:', error);
       // Handle any network errors here
     }
   };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/dashbaord'); // Navigate to the dashboard when authentication is successful
+    }
+
+    if (error) {
+      alert(error); // Handle any errors
+      dispatch(clearErrors()); // Clear errors after showing them
+    }
+  }, [isAuthenticated, error, navigate, dispatch]);
 
   const [showForgotPassword, setShowForgotPassword] = useState(false);
 

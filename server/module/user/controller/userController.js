@@ -47,6 +47,7 @@ class UserController {
     static userLogin = async (req,res) => {
         try{
             const {Email, Password} = req.body
+            console.log("bodyyyy",req.body)
             if(Email && Password) {
                 const getUser = await user.findOne({where:{userEmail: Email}})
                 if(getUser){
