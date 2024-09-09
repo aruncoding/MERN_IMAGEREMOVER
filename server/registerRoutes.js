@@ -1,4 +1,4 @@
-import userRoutes from './module/user/routes/userRoutes.js'
+import userRoutes from './module/User/routes/userRoutes.js'
 import clientRoutes from './module/Dashboard/Client/routes/clientRoutes.js';
 
 

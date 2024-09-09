@@ -10,5 +10,6 @@ router.use('/changepassword', checkUserAuth)
 router.post('/register', UserController.userRegistration)
 router.post('/login', UserController.userLogin)
 router.get('/changepassword',UserController.changeUserPassword)
+router.post('/logout',UserController.logoutUser)
 
 export default router;

@@ -7,12 +7,17 @@ import userRoutes from './module/User/routes/userRoutes.js'
 import db from './models/index.js'
 import bodyParser from 'body-parser';
 import registerRoutes from './registerRoutes.js';
+import cookieParser from 'cookie-parser';
 
 const app = express()
 const port = process.env.PORT || 5000;
 
-app.use(cors());
+app.use(cookieParser());
 app.use(bodyParser.json());
+app.use(cors({
+  origin: 'http://localhost:3001', // Replace this with your frontend origin
+  credentials: true,               // Allow credentials (cookies)
+}));
 
 // Use routes
 // app.use('/api', userRoutes);

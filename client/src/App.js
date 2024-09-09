@@ -1,6 +1,7 @@
 // src/App.js
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { BrowserRouter as Router, Route, Routes, Navigate  } from 'react-router-dom';
 import Navbar from './components/Common/Navbar';
 import Home from './components/home/Home';
 import About from './components/About/About';
@@ -13,10 +14,11 @@ import Dashboard from './components/Dashboard/Dashboard';
 import './App.css';
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const handleSignIn = () => setIsAuthenticated(true);
-  const handleSignOut = () => setIsAuthenticated(false);
+  const { error, isAuthenticated } = useSelector(
+    (state) => state.user
+  );
+
 
   return (
     <Router>
@@ -26,9 +28,10 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/services" element={<Services />} />
-        <Route path="/sign-in" element={<SignIn onSignIn={handleSignIn} />} />
+        <Route path="/sign-in" element={isAuthenticated ? <Navigate to="/dashboard" /> : <SignIn />} />
+        <Route path="/dashboard" element={isAuthenticated ? <Dashboard /> : <Navigate to="/sign-in" />} />
         <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/dashbaord" element={<Dashboard />} />
+        
         {/* <Route path="/sign-out" element={<SignOut onSignOut={handleSignOut} />} /> */}
       </Routes>
     </Router>

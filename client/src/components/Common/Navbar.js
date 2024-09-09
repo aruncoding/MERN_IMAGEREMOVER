@@ -15,12 +15,13 @@ const Navbar = () => {
 
   const handleSignOut = () => {
     dispatch(logout()); // Dispatch signOut action to update isAuthenticated
+    navigate('/');
   };
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      navigate('/'); // Navigate to the dashboard when authentication is successful
-    }
+    // if (!isAuthenticated) {
+    //   navigate('/'); // Navigate to the dashboard when authentication is successful
+    // }
 
     if (error) {
       alert(error); // Handle any errors

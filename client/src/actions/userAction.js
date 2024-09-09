@@ -50,6 +50,7 @@ export const login = (Email, Password) => async (dispatch) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ Email, Password },), // Send form data as JSON
+      credentials: 'include',  
     });
     // Parse the response data as JSON
     const data = await response.json();
@@ -87,20 +88,30 @@ export const loadUser = () => async (dispatch) => {
   try {
     dispatch({ type: LOAD_USER_REQUEST });
 
-    const { data } = await axios.get(`/api/v1/me`);
+    
 
     dispatch({ type: LOAD_USER_SUCCESS, payload: data.user });
   } catch (error) {
-    dispatch({ type: LOAD_USER_FAIL, payload: error.response.data.message });
+    dispatch({ type: LOAD_USER_FAIL, payload: data.message });
   }
 };
 
 // Logout User
 export const logout = () => async (dispatch) => {
   try {
-    dispatch({ type: LOGOUT_SUCCESS });
+    const response = await fetch('http://localhost:8000/api/users/logout', {
+      method: 'POST',
+      credentials: 'include', // Include cookies in the request
+    });
+    const data = await response.json();
+    console.log("dsdas",data)
+    if(data.status === 'success'){
+      dispatch({ type: LOGOUT_SUCCESS });
+    }else{
+      dispatch({ type: LOGIN_FAIL, payload: data.message  });
+    }
   } catch (error) {
-    dispatch({ type: LOGOUT_FAIL, payload: error.response.data.message });
+    dispatch({ type: LOGOUT_FAIL, payload: data.message });
   }
 };
 
