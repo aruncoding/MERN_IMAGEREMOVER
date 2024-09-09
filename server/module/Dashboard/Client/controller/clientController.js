@@ -9,41 +9,19 @@ class ClientController {
     static createClient = async (req, res) => {
         const { name, mobile } = req.body;
         console.log(req.body,'createClient body');
-        
+        console.log("reqreqreqss",req.user.dataValues.id)
 
-        
-        // if (userFind) {
-        //     res.send({ "status": "failed", "message": "Email already exists" })
-        // }
-        // else {
-        //     //below is checking wheather all fields have value or not
-        //     if (Name && Email && password && cPassword) {
-        //         if (password == cPassword) {
-        //             try {
-        //                 //Hasing password
-        //                 const salt = await bcrypt.genSalt(10)
-        //                 const hashPassword = await bcrypt.hash(password, salt)
-        //                 const userCreate = user.create({
-        //                     userName: Name,
-        //                     userEmail: Email,
-        //                     userPassword: hashPassword,
-        //                 }).then(function (newUser) {
-        //                     const savedUser = user.findOne({ userEmail: newUser.Email });
-        //                     //Generate JWT Token
-        //                     const token = jwt.sign({ userId: newUser.id }, process.env.JWT_SECRET, { expiresIn: '5d' })
-        //                     res.send({ "status": "success", "message": "Registration successfull!", "token": token, "userDetails": newUser })
-        //                 });
-        //             } catch (error) {
-        //                 console.log(error)
-        //                 res.send({ "status": "failed", "message": "Unable to Register" })
-        //             }
-        //         } else {
-        //             res.send({ "status": "failed", "message": "Password and Confirm Password doesn't match" })
-        //         }
-        //     } else {
-        //         res.send({ "status": "failed", "message": "All Fields Are Required" })
-        //     }
-        // }
+        if(req.name && req.mobile){
+            const userCreate = client.create({
+                clientName: name,
+                clientMobile: mobile,
+                createdBy: req.user.dataValues.id
+            });
+            res.send({ "status": "success", "message": "Client Created Successfully!"})
+        }else{
+            res.send({ "status": "failed", "message": "All Fields Required!" })
+        }
+
     }
 }
 

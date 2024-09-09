@@ -29,7 +29,7 @@ const App = () => {
         <Route path="/sign-in" element={<SignIn onSignIn={handleSignIn} />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/dashbaord" element={<Dashboard />} />
-        <Route path="/sign-out" element={<SignOut onSignOut={handleSignOut} />} />
+        {/* <Route path="/sign-out" element={<SignOut onSignOut={handleSignOut} />} /> */}
       </Routes>
     </Router>
   );

@@ -41,7 +41,7 @@ import axios from "axios";
 // Login
 export const login = (Email, Password) => async (dispatch) => {
   try {
-    // dispatch({ type: LOGIN_REQUEST });
+    dispatch({ type: LOGIN_REQUEST });
     console.log('emailll', Email)
     console.log('Password', Password)
     const response= await fetch('http://localhost:8000/api/users/login', {
@@ -54,9 +54,13 @@ export const login = (Email, Password) => async (dispatch) => {
     // Parse the response data as JSON
     const data = await response.json();
     console.log("datadata", data);
-    dispatch({ type: LOGIN_SUCCESS, payload: data.user });
+    if(data.status === 'success'){
+      dispatch({ type: LOGIN_SUCCESS, payload: data.user });
+    }else{
+      dispatch({ type: LOGIN_FAIL, payload: data.message });
+    }
   } catch (error) {
-    dispatch({ type: LOGIN_FAIL, payload: error.response.data.message });
+    dispatch({ type: LOGIN_FAIL, payload: data.message });
   }
 };
 
@@ -73,7 +77,7 @@ export const register = (userData) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: REGISTER_USER_FAIL,
-      payload: error.response.data.message,
+      payload: data.message,
     });
   }
 };
@@ -94,8 +98,6 @@ export const loadUser = () => async (dispatch) => {
 // Logout User
 export const logout = () => async (dispatch) => {
   try {
-    await axios.get(`/api/v1/logout`);
-
     dispatch({ type: LOGOUT_SUCCESS });
   } catch (error) {
     dispatch({ type: LOGOUT_FAIL, payload: error.response.data.message });
