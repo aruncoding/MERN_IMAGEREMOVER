@@ -35,7 +35,7 @@ export const addClient = (name, mobile) => async (dispatch) => {
     }
   };
 
-  export default getFolder = () => async (dispatch) => {
+  export const getFolder = () => async (dispatch) => {
     dispatch({ type: CLIENT_GET_REQUEST });
     const response = await fetch('http://localhost:8000/api/clients/getclient', {
         method: 'GET',
@@ -48,10 +48,10 @@ export const addClient = (name, mobile) => async (dispatch) => {
       if (response.ok) {
         const data = await response.json();  // Convert the response to JSON
         console.log("dsfsdfsdf",data)
-        dispatch({ type: CLIENT_FETCH_SUCCESS, payload: data.payload });
+        dispatch({ type: CLIENT_FETCH_SUCCESS, payload: data.data });
         console.log(data);  // Handle the data from the API
       } else {
         dispatch({ type: CLIENT_FETCH_FAILED,  });
         console.error('Failed to fetch data:', response.statusText);
       }
-  }
+  };

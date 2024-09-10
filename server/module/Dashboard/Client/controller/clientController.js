@@ -45,20 +45,27 @@ class ClientController {
 
 
     static getClient = async (req, res) => {
-        const getUser = await user.findOne({ where: { id: req.user.dataValues.id, isDeleted: false } });
-        console.log('getUser', getUser.user);
+        try {
+            console.log('ggggggggggg--->',req.user)
+            const getUser = await user.findOne({ where: { id: req.user.dataValues.id, isDeleted: false } });
+            console.log('getUser', getUser);
+            console.log('11111111', getUser.dataValues);
 
-        const sql = `SELECT f.id,f.FolderName,f.displayFolderName,f.fparentId,f.isRelease 
-        FROM folder AS f
-        LEFT JOIN folder AS fd ON f.id = fd.fparentId AND fd.isDeleted=FALSE
-        WHERE f.isDeleted= FALSE AND f.createdBy = ${getUser.user.dataValues.id}`;
+            const sql = `SELECT f.id,f.FolderName,f.displayFolderName,f.fparentId,f.isRelease 
+            FROM folder AS f
+            LEFT JOIN folder AS fd ON f.id = fd.fparentId AND fd.isDeleted=FALSE
+            WHERE f.isDeleted= FALSE AND f.createdBy = ${getUser.dataValues.id}`;
 
-        const data = await db.sequelize.query(sql, { type: db.sequelize.QueryTypes.SELECT });
-        if (data) {
-            return res.status(200).send({ code: 200, message: "Folder Details", data: data });
-        } else {
-            return res.status(404).send({ code: 404, message: "Folder Not Found",data: [] });
+            const data = await db.sequelize.query(sql, { type: db.sequelize.QueryTypes.SELECT });
+            if (data) {
+                return res.status(200).send({ code: 200, message: "Folder Details", data: data });
+            } else {
+                return res.status(404).send({ code: 404, message: "Folder Not Found", data: [] });
+            }
+        } catch (e) {
+            console.log('eeeeee', e)
         }
+
 
     }
 

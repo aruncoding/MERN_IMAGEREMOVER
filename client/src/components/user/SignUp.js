@@ -41,7 +41,7 @@ const SignUp = () => {
         const data = await response.json();
         console.log('User signed up successfully:', data);
         if(data.status == 'success'){
-          navigate('/dashbaord'); // Redirect to sign-in page after successful sign-up
+          navigate('/dashboard'); // Redirect to sign-in page after successful sign-up
         }else{
           alert('Signup Failled');
         }

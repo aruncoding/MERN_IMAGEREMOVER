@@ -40,7 +40,7 @@ const SignIn = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/dashbaord'); // Navigate to the dashboard when authentication is successful
+      navigate('/dashboard'); // Navigate to the dashboard when authentication is successful
     }
 
     if (error) {

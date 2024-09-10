@@ -11,12 +11,13 @@ export const clientReducer = (state = { client: {} }, action) => {
         case CLIENT_LOGIN_FAIL:
         case CLIENT_ADD_REQUEST:
             return {
-                isAuthenticated: false,
+              ...state,
+                clientmade: false,
             };
         case CLIENT_ADD_SUCCESS:
             return {
                 ...state,
-                isAuthenticated: true,
+                clientmade: true,
                 client: action.payload,
             };
         default:
@@ -29,19 +30,19 @@ export const clientfolderReducer = (state = {folders:[]}, action) => {
       case CLIENT_GET_REQUEST:
         return {
           ...state,
-          folderDetail: false,
+          clientmade: false,
         };
       case CLIENT_FETCH_SUCCESS:
         return {
           ...state,
-          folderDetail: true,
+          clientmade: true,
           folders: action.payload
         };
   
       case CLIENT_FETCH_FAILED:
         return {
             ...state,
-            folderDetail: false,
+            clientmade: false,
         };
   
       default:
