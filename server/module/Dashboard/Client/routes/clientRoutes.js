@@ -4,10 +4,11 @@ import ClientController from "../controller/clientController.js";
 import checkUserAuth from "../../../../middlewares/auth-middleware.js";
 
 router.use('/create/client', checkUserAuth)
+router.use('/getclient', checkUserAuth)
 
 
 router.post('/create/client', ClientController.createClient)
 // router.post('/login', UserController.userLogin)
-// router.get('/changepassword',UserController.changeUserPassword)
+router.get('/getclient',ClientController.getClient)
 
 export default router;

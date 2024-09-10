@@ -1,15 +1,27 @@
 import React, { useState } from 'react';
 import './Modal.css';
+import { addClient } from '../../../actions/clientAction';
+import { useDispatch, useSelector } from "react-redux";
 
 const Modal = ({ closeModal }) => {
-  const [name, setName] = useState('');
-  const [mobile, setMobile] = useState('');
+  const dispatch =  useDispatch();
+  const [client, setClient] = useState({
+    name: "",
+    mobile: ""
+  });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission here
-    console.log('Name:', name);
-    console.log('Mobile Number:', mobile);
+  const formClient = (e)=> {
+    const { name, value } = e.target;
+    setClient((prevForm) => ({
+      ...prevForm,
+      [name]: value,
+    }));
+  }
+
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch(addClient(client.name, client.mobile))
     closeModal();
   };
 
@@ -24,8 +36,9 @@ const Modal = ({ closeModal }) => {
             <input
               type="text"
               id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              name="name"
+              value={client.name}
+              onChange={formClient}
               required
             />
           </div>
@@ -34,8 +47,9 @@ const Modal = ({ closeModal }) => {
             <input
               type="tel"
               id="mobile"
-              value={mobile}
-              onChange={(e) => setMobile(e.target.value)}
+              name="mobile"
+              value={client.mobile}
+              onChange={formClient}
               required
             />
           </div>

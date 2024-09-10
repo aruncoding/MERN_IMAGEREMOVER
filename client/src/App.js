@@ -28,8 +28,8 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/services" element={<Services />} />
-        <Route path="/sign-in" element={isAuthenticated ? <Navigate to="/dashboard" /> : <SignIn />} />
-        <Route path="/dashboard" element={isAuthenticated ? <Dashboard /> : <Navigate to="/sign-in" />} />
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/sign-up" element={<SignUp />} />
         
         {/* <Route path="/sign-out" element={<SignOut onSignOut={handleSignOut} />} /> */}

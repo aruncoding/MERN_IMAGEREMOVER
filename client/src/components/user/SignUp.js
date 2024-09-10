@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './SignUp.css';
 import Dashboard from '../Dashboard/Dashboard';
+import { Link } from 'react-router-dom';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -103,7 +104,7 @@ const SignUp = () => {
         </label>
         <button type="submit">Sign Up</button>
         <p className="signin-link">
-          Already have an account? <a href="/sign-in">Sign In</a>
+          Already have an account? <Link to="/sign-in">Sign In</Link>
         </p>
       </form>
     </div>

@@ -11,7 +11,7 @@ const clientModel = (sequelize, Sequelize) => {
             allowNull: true
         },
         clientMobile: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.BIGINT,
             allowNull: true
         },
         isActive: {

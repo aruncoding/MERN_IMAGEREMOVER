@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import './SignIn.css';
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, login, register } from '../../actions/userAction';
+import { Link } from 'react-router-dom';
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -84,7 +85,7 @@ const SignIn = () => {
             Forgot Password?
           </p>
           <p className="signup-link">
-            Don't have an account? <a href="/sign-up">Sign Up</a>
+            Don't have an account? <Link to="/sign-up">Sign Up</Link>
           </p>
         </form>
       ) : (

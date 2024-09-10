@@ -10,7 +10,7 @@ body {
     left: 0;
     height: 100%;
     width: 18%;
-    background-color: #333;
+    background-color: #d5cc5e;
     overflow: hidden;
     transition: width 0.3s ease;
     display: flex;
@@ -22,7 +22,7 @@ body {
 }
 
 .menu-toggle {
-    background: #333;
+    background: #cf4646;;
     color: white;
     border: none;
     cursor: pointer;

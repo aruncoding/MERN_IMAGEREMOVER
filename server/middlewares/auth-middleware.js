@@ -10,7 +10,7 @@ var checkUserAuth = async(req, res, next) => {
 
         if (req.cookies && req.cookies.token) {
             token = req.cookies.token;
-    
+            console.log("sdfsdfsdfsdfsdfsd",token)
             try {
                 // Verify Token
                 const { UserId } = jwt.verify(token, process.env.JWT_SECRET);

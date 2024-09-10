@@ -3,7 +3,7 @@ dotenv.config() // Make availble all variable created on .env file to access to 
 import express from 'express'
 import cors from 'cors'
 import connection from './config/connectDb.js';
-import userRoutes from './module/User/routes/userRoutes.js'
+import userRoutes from './module/user/routes/userRoutes.js'
 import db from './models/index.js'
 import bodyParser from 'body-parser';
 import registerRoutes from './registerRoutes.js';
