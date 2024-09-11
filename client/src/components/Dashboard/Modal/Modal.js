@@ -45,7 +45,7 @@ const Modal = ({ closeModal }) => {
           <div className="form-group">
             <label htmlFor="mobile">Mobile Number</label>
             <input
-              type="tel"
+              type="number"
               id="mobile"
               name="mobile"
               value={client.mobile}
