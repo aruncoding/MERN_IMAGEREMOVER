@@ -72,9 +72,23 @@ export const register = (userData) => async (dispatch) => {
 
     const config = { headers: { "Content-Type": "multipart/form-data" } };
 
-    const { data } = await axios.post(`/api/users/register`, userData, config);
+    const response = await fetch('http://localhost:8000/api/users/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData), // Send form data as JSON
+    });
 
-    dispatch({ type: REGISTER_USER_SUCCESS, payload: data.user });
+    // Parse the response data as JSON
+    const data = await response.json();
+    console.log("datadata", data);
+
+    if(data.status === 'success'){
+      dispatch({ type: REGISTER_USER_SUCCESS, payload: data.user });
+    }else{
+      dispatch({ type: REGISTER_USER_FAIL, payload: data.message });
+    }
   } catch (error) {
     dispatch({
       type: REGISTER_USER_FAIL,

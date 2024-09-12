@@ -1,26 +1,43 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { thunk } from "redux-thunk"; // Correct import for thunk
-import { userReducer } from "./reducers/userReducer"; // Import your userReducer
-import { clientReducer } from "./reducers/clientReducer";
-import { clientfolderReducer } from "./reducers/clientReducer";
+import {thunk} from "redux-thunk";
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
+import { combineReducers } from 'redux'; // Import combineReducers
+import { userReducer } from "./reducers/userReducer";
+import { clientReducer, clientfolderReducer } from "./reducers/clientReducer";
 import { createFolderReducer } from "./reducers/folderReducer";
-// Define the reducer object
-const rootReducer = {
-  user: userReducer, // Your reducers go here
-  client: clientReducer,
-  clientfolder : clientfolderReducer,
-  createfolder : createFolderReducer
 
+// Combine all your reducers into a root reducer function
+const rootReducer = combineReducers({
+  user: userReducer,
+  client: clientReducer,
+  clientfolder: clientfolderReducer,
+  createfolder: createFolderReducer,
+});
+
+// Create a persist configuration
+const persistConfig = {
+  key: 'root',
+  storage, // Use localStorage to persist state
+  whitelist: ['user', 'client', 'clientfolder', 'createfolder'], // List of reducers you want to persist
 };
+
+// Wrap the combined reducer with persistReducer
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 // Middleware setup
 const middleware = [thunk];
 
-// Configure the store
+// Configure the store with the persisted reducer
 const store = configureStore({
-  reducer: rootReducer, // Pass the reducer object directly
+  reducer: persistedReducer, // Use the persisted reducer
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(middleware),
+    getDefaultMiddleware({
+      serializableCheck: false, // Disable serializable checks for redux-persist
+    }).concat(middleware),
 });
+
+// Export the persistor
+export const persistor = persistStore(store);
 
 export default store;

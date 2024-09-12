@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Modal.css';
 import { addClient } from '../../../actions/clientAction';
 import { useDispatch, useSelector } from "react-redux";
-
 const Modal = ({ closeModal }) => {
   const dispatch =  useDispatch();
+
   const [client, setClient] = useState({
     name: "",
     mobile: ""
@@ -24,6 +24,8 @@ const Modal = ({ closeModal }) => {
     dispatch(addClient(client.name, client.mobile))
     closeModal();
   };
+
+ 
 
   return (
     <div className="modal-overlay">

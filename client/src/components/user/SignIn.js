@@ -30,7 +30,7 @@ const SignIn = () => {
     event.preventDefault();
     try {
       const value = dispatch(login(form.Email, form.Password));
-      console.log('sdfsdfsdfsdf', value);
+      console.log('login', value);
 
     } catch (error) {
       console.error('Network error:', error);

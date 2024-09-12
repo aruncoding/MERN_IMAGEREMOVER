@@ -46,28 +46,43 @@ class ClientController {
 
     static getClient = async (req, res) => {
         try {
-            console.log('ggggggggggg--->',req.user)
+            console.log('ggggggggggg--->', req.user);
             const getUser = await user.findOne({ where: { id: req.user.dataValues.id, isDeleted: false } });
-            console.log('getUser', getUser);
-            console.log('11111111', getUser.dataValues);
-
-            const sql = `SELECT f.id,f.FolderName,f.displayFolderName,f.fparentId,f.isRelease 
-            FROM folder AS f
-            LEFT JOIN folder AS fd ON f.id = fd.fparentId AND fd.isDeleted=FALSE
-            WHERE f.isDeleted= FALSE AND f.createdBy = ${getUser.dataValues.id}`;
-
-            const data = await db.sequelize.query(sql, { type: db.sequelize.QueryTypes.SELECT });
-            if (data) {
-                return res.status(200).send({ code: 200, message: "Folder Details", data: data });
-            } else {
-                return res.status(404).send({ code: 404, message: "Folder Not Found", data: [] });
-            }
+    
+            const folders = await folder.findAll({
+                where: { 
+                    fparentId: null,
+                    createdBy: getUser.dataValues.id // Add the condition for createdBy
+                },
+                include: [{
+                    model: folder,
+                    as: 'subFolders',
+                    attributes: ['id', 'FolderName', 'displayFolderName', 'fparentId', 'isRelease']
+                }],
+                attributes: ['id', 'FolderName', 'displayFolderName', 'fparentId', 'isRelease']
+            });
+    
+            console.log("folderfolders", folders);
+    
+            // Send the response once
+            return res.status(200).json({
+                code: 200,
+                message: "Folder Details",
+                data: folders
+            });
+    
         } catch (e) {
-            console.log('eeeeee', e)
+            console.log('eeeeee', e);
+    
+            // Handle the error and send a response if needed
+            return res.status(500).json({
+                code: 500,
+                message: "An error occurred",
+                error: e.message
+            });
         }
-
-
     }
+    
 
 }
 

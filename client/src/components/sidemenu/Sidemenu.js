@@ -42,28 +42,27 @@ const Sidemenu = () => {
 
     const handleInputSubmit = (e, folderId) => {
         e.preventDefault();
-    
+
         // Get all non-empty inputs for the folder
         const inputs = activeFolders[folderId].filter(input => input !== '');
-    
+
         // Loop through each input and dispatch the addFolder action
         inputs.forEach(input => {
             dispatch(addFolder(folderId, input)); // Dispatch folderId as fparentId and input as name
         });
-    
+
         // Clear the active inputs for the folder after submission
         setActiveFolders(prev => ({
             ...prev,
             [folderId]: []
         }));
-    
+
         // Optionally store submitted inputs in folderInputs if you need to display them
         setFolderInputs(prev => [
             ...prev,
             ...inputs.map(input => ({ folderId, input }))
         ]);
     };
-    
 
     const handleDeleteValue = (folderId, index) => {
         // Remove the selected value from folderInputs
@@ -72,7 +71,7 @@ const Sidemenu = () => {
         );
     };
 
-    console.log("folderInputsfolderInputs",folderInputs)
+    console.log("folderInputsfolderInputs", folderInputs);
 
     return (
         <div className={`menu-bar ${isOpen ? 'open' : ''}`}>
@@ -96,6 +95,7 @@ const Sidemenu = () => {
                             />
                         </div>
 
+                        {/* Display active input fields when expanded */}
                         {activeFolders[folder.id]?.length > 0 && (
                             <form onSubmit={e => handleInputSubmit(e, folder.id)}>
                                 {activeFolders[folder.id].map((input, index) => (
@@ -115,7 +115,7 @@ const Sidemenu = () => {
                             </form>
                         )}
 
-                        {/* Display folder inputs after submission */}
+                        {/* Display submitted inputs after submission */}
                         {folderInputs.filter(item => item.folderId === folder.id).length > 0 && (
                             <div className="folder-values">
                                 {folderInputs.filter(item => item.folderId === folder.id).map((value, index) => (
@@ -134,6 +134,22 @@ const Sidemenu = () => {
                                     </div>
                                 ))}
                             </div>
+                        )}
+
+                        {/* Display subFolders if present */}
+                        {folder.subFolders && folder.subFolders.length > 0 && (
+                            <ul className="sub-folder-list">
+                                {folder.subFolders.map(subFolder => (
+                                    <li key={subFolder.id} className="sub-folder-item">
+                                        <input
+                                            type="text"
+                                            className="folder-input"
+                                            value={subFolder.FolderName}
+                                            readOnly
+                                        />
+                                    </li>
+                                ))}
+                            </ul>
                         )}
                     </li>
                 ))}

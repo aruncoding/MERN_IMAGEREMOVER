@@ -1,11 +1,17 @@
 // src/components/SignUp.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './SignUp.css';
 import Dashboard from '../Dashboard/Dashboard';
 import { Link } from 'react-router-dom';
+import { register } from '../../actions/userAction';
+import { useDispatch, useSelector } from "react-redux";
 
 const SignUp = () => {
+  const dispatch = useDispatch();
+  const { error, loading, isAuthenticated } = useSelector(
+    (state) => state.user
+  );
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -25,37 +31,14 @@ const SignUp = () => {
 
   const handleSignUp = async (event) => {
     event.preventDefault();
-  
-    try {
-      // Make the API call
-      const response = await fetch('http://localhost:8000/api/users/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(form), // Send form data as JSON
-      });
-  
-      // Handle the response
-      if (response.ok) {
-        const data = await response.json();
-        console.log('User signed up successfully:', data);
-        if(data.status == 'success'){
-          navigate('/dashboard'); // Redirect to sign-in page after successful sign-up
-        }else{
-          alert('Signup Failled');
-        }
-        
-      } else {
-        const errorData = await response.json();
-        console.error('Error signing up:', errorData);
-        // Optionally show error messages to the user here
-      }
-    } catch (error) {
-      console.error('Network error:', error);
-      // Handle any network errors here
-    }
+    const value = dispatch(register(form));
   };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/dashboard'); // Navigate to the dashboard when authentication is successful
+    }
+  }, [isAuthenticated]);
   
 
   return (
