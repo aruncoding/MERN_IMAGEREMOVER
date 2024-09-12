@@ -10,15 +10,14 @@ var checkUserAuth = async(req, res, next) => {
 
         if (req.cookies && req.cookies.token) {
             token = req.cookies.token;
-            console.log("sdfsdfsdfsdfsdfsd",token)
             try {
                 // Verify Token
                 const { UserId } = jwt.verify(token, process.env.JWT_SECRET);
-                console.log("Authenticated User: ", UserId); // Add this to verify
+              // Add this to verify
 
                 // Get User From Token
                 req.user = await user.findOne({ where: { id: UserId }, attributes: { exclude: ['password'] } });
-                console.log("Authenticated User: ", req.user); // Add this to verify
+                // console.log("Authenticated User: ", req.user); // Add this to verify
 
                 if (!req.user) {
                     return res.status(401).send({ status: "failed", message: "Unauthorized User, user not found" });

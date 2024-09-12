@@ -3,11 +3,13 @@ import { thunk } from "redux-thunk"; // Correct import for thunk
 import { userReducer } from "./reducers/userReducer"; // Import your userReducer
 import { clientReducer } from "./reducers/clientReducer";
 import { clientfolderReducer } from "./reducers/clientReducer";
+import { createFolderReducer } from "./reducers/folderReducer";
 // Define the reducer object
 const rootReducer = {
   user: userReducer, // Your reducers go here
   client: clientReducer,
-  clientfolder : clientfolderReducer
+  clientfolder : clientfolderReducer,
+  createfolder : createFolderReducer
 
 };
 

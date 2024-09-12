@@ -60,10 +60,10 @@ const folderModel = (sequelize, Sequelize) => {
             onUpdate: 'CASCADE'
         },
     }, {
-        timestamps: true,  // Automatically manage createdAt and updatedAt
-        tableName: 'folder',  // Specify the table name
-        charset: 'utf8mb4',  // Character set
-        collate: 'utf8mb4_0900_ai_ci',  // Collation
+        timestamps: true,
+        tableName: 'folder',
+        charset: 'utf8mb4',
+        collate: 'utf8mb4_0900_ai_ci',
         indexes: [
             {
                 name: 'FK_6e0b77d0f3d4bb7a0b3814f0dd5',
@@ -88,6 +88,14 @@ const folderModel = (sequelize, Sequelize) => {
         // Self-referencing association (for parent folders)
         Folder.belongsTo(Folder, {
             as: 'parentFolder',
+            foreignKey: 'fparentId',
+            onDelete: 'RESTRICT',
+            onUpdate: 'CASCADE'
+        });
+
+        // Self-referencing association for sub-folders
+        Folder.hasMany(Folder, {
+            as: 'subFolders',
             foreignKey: 'fparentId',
             onDelete: 'RESTRICT',
             onUpdate: 'CASCADE'

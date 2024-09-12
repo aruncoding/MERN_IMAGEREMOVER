@@ -4,14 +4,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { getFolder } from '../../actions/clientAction';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { addFolder } from '../../actions/folderAction';
 
 const Sidemenu = () => {
     const dispatch = useDispatch();
     const [isOpen, setIsOpen] = useState(false);
     const [activeFolders, setActiveFolders] = useState({});
-    const [folderInputs, setFolderInputs] = useState({});
+    const [folderInputs, setFolderInputs] = useState([]); // Store input with folder ID
     const { clientmade } = useSelector((state) => state.client);
     const { folders } = useSelector((state) => state.clientfolder);
+    // const { foldermade } = useSelector((state) => {state.createfolder})
 
     useEffect(() => {
         if (clientmade) {
@@ -22,9 +24,12 @@ const Sidemenu = () => {
     const toggleMenu = () => setIsOpen(!isOpen);
 
     const handleExpandClick = (folderId) => {
+        // Prevent adding another input if there is already an active input for the folder
+        if (activeFolders[folderId]?.length > 0) return;
+
         setActiveFolders(prev => ({
             ...prev,
-            [folderId]: [...(prev[folderId] || []), '']
+            [folderId]: [...(prev[folderId] || []), ''] // Add new input
         }));
     };
 
@@ -37,27 +42,41 @@ const Sidemenu = () => {
 
     const handleInputSubmit = (e, folderId) => {
         e.preventDefault();
-        setFolderInputs(prev => ({
-            ...prev,
-            [folderId]: [...(prev[folderId] || []), ...activeFolders[folderId]]
-        }));
+    
+        // Get all non-empty inputs for the folder
+        const inputs = activeFolders[folderId].filter(input => input !== '');
+    
+        // Loop through each input and dispatch the addFolder action
+        inputs.forEach(input => {
+            dispatch(addFolder(folderId, input)); // Dispatch folderId as fparentId and input as name
+        });
+    
+        // Clear the active inputs for the folder after submission
         setActiveFolders(prev => ({
             ...prev,
             [folderId]: []
         }));
+    
+        // Optionally store submitted inputs in folderInputs if you need to display them
+        setFolderInputs(prev => [
+            ...prev,
+            ...inputs.map(input => ({ folderId, input }))
+        ]);
     };
+    
 
     const handleDeleteValue = (folderId, index) => {
-        setFolderInputs(prev => ({
-            ...prev,
-            [folderId]: prev[folderId].filter((_, i) => i !== index)
-        }));
+        // Remove the selected value from folderInputs
+        setFolderInputs(prev =>
+            prev.filter((item, i) => !(item.folderId === folderId && i === index))
+        );
     };
+
+    console.log("folderInputsfolderInputs",folderInputs)
 
     return (
         <div className={`menu-bar ${isOpen ? 'open' : ''}`}>
             <button className="menu-toggle" onClick={toggleMenu}>
-                {/* <FontAwesomeIcon icon={faBars} aria-hidden="true" /> */}
                 <span className='toggle-name'> Client Name</span>
             </button>
             <ul>
@@ -76,32 +95,35 @@ const Sidemenu = () => {
                                 onClick={() => handleExpandClick(folder.id)}
                             />
                         </div>
+
                         {activeFolders[folder.id]?.length > 0 && (
                             <form onSubmit={e => handleInputSubmit(e, folder.id)}>
                                 {activeFolders[folder.id].map((input, index) => (
-                                    <input
-                                        key={index}
-                                        type="text"
-                                        className="folder-input"
-                                        placeholder="Enter text..."
-                                        value={input}
-                                        onChange={e => handleInputChange(folder.id, index, e.target.value)}
-                                    />
+                                    <React.Fragment key={index}>
+                                        <input
+                                            type="text"
+                                            className="folder-input"
+                                            placeholder="Enter text..."
+                                            value={input}
+                                            onChange={e => handleInputChange(folder.id, index, e.target.value)}
+                                        />
+                                        <button type="submit" style={{
+                                            border: '2px solid #000',
+                                        }}>Submit</button>
+                                    </React.Fragment>
                                 ))}
-                                <button type="submit" style={{
-                                    border: '2px solid #000', // Apply the border style directly here
-                                    // You can add more styles if needed
-                                }}>Submit</button>
                             </form>
                         )}
-                        {folderInputs[folder.id]?.length > 0 && (
+
+                        {/* Display folder inputs after submission */}
+                        {folderInputs.filter(item => item.folderId === folder.id).length > 0 && (
                             <div className="folder-values">
-                                {folderInputs[folder.id].map((value, index) => (
+                                {folderInputs.filter(item => item.folderId === folder.id).map((value, index) => (
                                     <div key={index} className="folder-value">
                                         <input
                                             type="text"
                                             className="folder-input"
-                                            value={value}
+                                            value={value.input}
                                             readOnly
                                         />
                                         <FontAwesomeIcon
