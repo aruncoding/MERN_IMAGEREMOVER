@@ -1,36 +1,86 @@
-
+/* General styles for the navbar */
 .navbar {
-    background: url('/public/images/stock.jpg') no-repeat center center;
-    background-size: cover;
-    padding: 10px;
-    color: white;
-    transition: background-color 0.3s ease-in-out;
-  }
-  
+  background: url('/public/images/stock.jpg') no-repeat center center;
+  background-size: cover;
+  padding: 19px;
+  color: white;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between; /* Separate left and right sections */
+  align-items: center;
+  width: 100%;
+}
+
+/* Styles for the left-aligned menu */
+.navbar-menu {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+  padding: 0;
+  margin: 0; /* Remove default margin */
+}
+
+.navbar-menu li {
+  margin: 0;
+}
+
+.navbar-menu a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.navbar-menu a:hover {
+  color: #ff6347;
+}
+
+/* Right-aligned sign-out/login button container */
+.navbar-signout {
+  margin-left: auto; /* Pushes the sign-out or login to the far right */
+}
+
+.sign-out-button {
+  background-color: transparent;
+  border: 1px solid white;
+  padding: 4px 10px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sign-out-button:hover {
+  background-color: #ff6347;
+  color: white;
+}
+
+.login-button {
+  color: white;
+  text-decoration: none;
+  border: 1px solid white;
+  padding: 8px 15px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #ff6347;
+  color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
   .navbar-container {
-    display: flex;
-    justify-content: center;
+    flex-direction: column;
   }
-  
+
   .navbar-menu {
-    list-style: none;
-    display: flex;
-    gap: 15px;
-    padding: 0;
+    flex-direction: column;
   }
-  
-  .navbar-menu li {
-    margin: 0;
+
+  .navbar-signout {
+    margin-top: 10px;
   }
-  
-  .navbar-menu a {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-    transition: color 0.3s ease;
-  }
-  
-  .navbar-menu a:hover {
-    color: #ff6347;
-  }
-  
+}

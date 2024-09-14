@@ -13,11 +13,15 @@ const Sidemenu = () => {
     const [folderInputs, setFolderInputs] = useState([]); // Store input with folder ID
     const { clientmade } = useSelector((state) => state.client);
     const { folders } = useSelector((state) => state.clientfolder);
-    // const { foldermade } = useSelector((state) => {state.createfolder})
 
+    // Fetch folders when the client is made and clear inputs when new folders are loaded
     useEffect(() => {
         if (clientmade) {
             dispatch(getFolder());
+
+            // Clear active folders and folder inputs when new folders are fetched
+            setActiveFolders({});
+            setFolderInputs([]);
         }
     }, [clientmade, dispatch]);
 

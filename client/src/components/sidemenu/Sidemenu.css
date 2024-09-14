@@ -7,11 +7,11 @@ body {
     position: fixed;
     top: 70px;
     left: 0;
-    height: 100%;
     width: 18%;
+    max-height: calc(100vh - 70px); /* Set max height to fill the view minus the top bar */
     background-color: #1d111d18;
     overflow-y: auto; /* Enables vertical scrolling */
-    transition: width 0.3s ease, height 0.3s ease; /* Added height transition */
+    transition: width 0.3s ease; /* Removed height transition */
     display: flex;
     flex-direction: column;
 }
@@ -95,14 +95,14 @@ body {
 .toggle-name {
     text-align: center;
     color: white;
-    font-style:normal;
+    font-style: normal;
 }
 
 /* Responsive design adjustments */
 @media (max-width: 1024px) {
     .menu-bar {
         width: 15%;
-        height: 90%; /* Reduced height for tablets and small desktops */
+        max-height: calc(90vh - 70px); /* Adjust max height for tablets and small desktops */
     }
 
     .menu-bar.open {
@@ -113,7 +113,7 @@ body {
 @media (max-width: 768px) {
     .menu-bar {
         width: 12%;
-        height: 80%; /* Further reduced height for tablets */
+        max-height: calc(80vh - 70px); /* Further reduced height for tablets */
     }
 
     .menu-bar.open {
@@ -124,7 +124,7 @@ body {
 @media (max-width: 480px) {
     .menu-bar {
         width: 8%;
-        height: 70%; /* Further reduced height for mobile phones */
+        max-height: calc(70vh - 70px); /* Further reduced height for mobile phones */
     }
 
     .menu-bar.open {
