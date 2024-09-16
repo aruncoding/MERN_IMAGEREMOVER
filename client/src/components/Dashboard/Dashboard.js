@@ -31,7 +31,7 @@ const Dashboard = () => {
       </button>
 
       {isModalOpen && <Modal closeModal={toggleModal} />}
-      <Sidemenu />
+      {/* <Sidemenu /> */}
     </div>
   );
 };

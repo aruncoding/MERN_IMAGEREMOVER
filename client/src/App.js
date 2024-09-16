@@ -12,7 +12,7 @@ import SignUp from './components/user/SignUp';
 import SignOut from './components/user/SignOut';
 import Dashboard from './components/Dashboard/Dashboard';
 import './App.css';
-
+import MergeDashboardSidemenu from './components/Dashboard/MergeDashboardSideMenu';
 const App = () => {
 
   const { error, isAuthenticated } = useSelector(
@@ -29,7 +29,8 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/services" element={<Services />} />
         <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+        <Route path="/dashboard" element={<MergeDashboardSidemenu />} />
         <Route path="/sign-up" element={<SignUp />} />
         
         {/* <Route path="/sign-out" element={<SignOut onSignOut={handleSignOut} />} /> */}

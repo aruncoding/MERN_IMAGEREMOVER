@@ -98,6 +98,38 @@ body {
     font-style: normal;
 }
 
+/* Add this CSS for the share icon */
+.share-icon {
+    cursor: pointer;
+    margin-left: 10px; /* Space between the folder name and the icon */
+    color: #000; /* Set icon color */
+    transition: color 0.3s ease; /* Add a hover transition */
+}
+
+.share-icon:hover {
+    color: #575757; /* Change color on hover */
+}
+
+.sub-folder-item {
+    display: flex;
+}
+
+.share {
+    padding: 12px 0px;
+}
+
+.folder-value {
+    display: flex;
+    justify-content: space-between; /* Ensure icon stays at the end */
+    align-items: center;
+    margin: 5px 0;
+}
+
+/* Adjust the folder-input for better spacing with the share icon */
+.folder-input {
+    width: calc(100% - 40px); /* Adjust width to accommodate the share icon */
+}
+
 /* Responsive design adjustments */
 @media (max-width: 1024px) {
     .menu-bar {
