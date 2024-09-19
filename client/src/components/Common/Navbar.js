@@ -17,6 +17,7 @@ const Navbar = () => {
     dispatch(logout()); // Dispatch logout action
     navigate('/'); // Redirect to home after logout
   };
+  console.log('isAuthenticatedlogout',isAuthenticated)
 
   useEffect(() => {
     if (error) {

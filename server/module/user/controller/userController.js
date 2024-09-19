@@ -7,42 +7,60 @@ class UserController {
     static userRegistration = async (req, res) => {
         const { Name, Email, password, cPassword } = req.body;
         console.log(req.body, 'reqreqreq')
-
-
+    
         const userFind = await user.findOne({ where: { userEmail: req.body.Email, isDeleted: false } });
         if (userFind) {
-            res.send({ "status": "failed", "message": "Email already exists" })
-        }
-        else {
-            //below is checking wheather all fields have value or not
+            res.send({ "status": "failed", "message": "Email already exists" });
+        } else {
+            // Checking whether all fields have values
             if (Name && Email && password && cPassword) {
-                if (password == cPassword) {
+                if (password === cPassword) {
                     try {
-                        //Hasing password
-                        const salt = await bcrypt.genSalt(10)
-                        const hashPassword = await bcrypt.hash(password, salt)
-                        const userCreate = user.create({
+                        // Hashing password
+                        const salt = await bcrypt.genSalt(10);
+                        const hashPassword = await bcrypt.hash(password, salt);
+    
+                        // Create user
+                        const userCreate = await user.create({
                             userName: Name,
                             userEmail: Email,
                             userPassword: hashPassword,
-                        }).then(function (newUser) {
-                            const savedUser = user.findOne({ userEmail: newUser.Email });
-                            //Generate JWT Token
-                            const token = jwt.sign({ userId: newUser.id }, process.env.JWT_SECRET, { expiresIn: '5d' })
-                            res.send({ "status": "success", "message": "Registration successfull!", "token": token, "userDetails": newUser })
                         });
+    
+                        // Check the result of the user creation
+                        console.log(userCreate, 'newly created user');
+    
+                        if (!userCreate || !userCreate.id) {
+                            return res.status(500).send({ "status": "failed", "message": "Failed to create user" });
+                        }
+    
+                        // Corrected the findOne query using where clause with proper column names
+                        const savedUser = await user.findOne({ where: { userEmail: userCreate.userEmail } });
+    
+                        // Generate JWT Token
+                        const token = jwt.sign({ UserId: userCreate.id }, process.env.JWT_SECRET, { expiresIn: '5d' });
+                        res.cookie('token', token, {
+                            httpOnly: true,      // HTTP-only, cannot be accessed via JavaScript
+                            secure: true,        // Ensure cookie is sent over HTTPS
+                            sameSite: 'strict',  // Helps mitigate CSRF attacks
+                            maxAge: 24 * 60 * 60 * 1000 // Cookie expiry in 1 day
+                        });
+    
+                        res.send({ "status": "success", "message": "Registration successful!", "token": token, "userDetails": userCreate });
                     } catch (error) {
-                        console.log(error)
-                        res.send({ "status": "failed", "message": "Unable to Register" })
+                        console.log(error);
+                        res.send({ "status": "failed", "message": "Unable to Register" });
                     }
                 } else {
-                    res.send({ "status": "failed", "message": "Password and Confirm Password doesn't match" })
+                    res.send({ "status": "failed", "message": "Password and Confirm Password don't match" });
                 }
             } else {
-                res.send({ "status": "failed", "message": "All Fields Are Required" })
+                res.send({ "status": "failed", "message": "All Fields Are Required" });
             }
         }
     }
+    
+    
 
     static userLogin = async (req, res) => {
         try {

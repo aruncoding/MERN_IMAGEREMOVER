@@ -12,9 +12,10 @@ var checkUserAuth = async(req, res, next) => {
             token = req.cookies.token;
             try {
                 // Verify Token
+                console.log('tokennn',req.cookies.token);
                 const { UserId } = jwt.verify(token, process.env.JWT_SECRET);
               // Add this to verify
-
+                console.log('userIddddd',UserId);
                 // Get User From Token
                 req.user = await user.findOne({ where: { id: UserId }, attributes: { exclude: ['password'] } });
                 // console.log("Authenticated User: ", req.user); // Add this to verify

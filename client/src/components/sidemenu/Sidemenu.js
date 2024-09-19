@@ -3,26 +3,24 @@ import './Sidemenu.css';
 import { useDispatch, useSelector } from "react-redux";
 import { getFolder } from '../../actions/clientAction';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { addFolder } from '../../actions/folderAction';
-import { faShareAlt } from '@fortawesome/free-solid-svg-icons';
 
 const Sidemenu = ({ onShareClick }) => {
     const dispatch = useDispatch();
     const [isOpen, setIsOpen] = useState(false);
     const [activeFolders, setActiveFolders] = useState({});
-    const [folderInputs, setFolderInputs] = useState([]);
     const { clientmade } = useSelector((state) => state.client);
-    const { folders } = useSelector((state) => state.clientfolder);
+    const { folders,createfolder } = useSelector((state) => state.clientfolder);
+    const { foldermade } = useSelector((state) => state.createfolder);
 
     useEffect(() => {
-        if (clientmade) {
+        if (clientmade || foldermade) {
             dispatch(getFolder());
             setActiveFolders({});
-            setFolderInputs([]);
         }
-    }, [clientmade, dispatch]);
-
+    }, [clientmade, foldermade,dispatch]);
+    console.log("foldermade",foldermade)
     const toggleMenu = () => setIsOpen(!isOpen);
 
     const handleExpandClick = (folderId) => {
@@ -51,19 +49,9 @@ const Sidemenu = ({ onShareClick }) => {
 
         setActiveFolders(prev => ({
             ...prev,
-            [folderId]: []
+            [folderId]: [] // Reset the input fields
         }));
-
-        setFolderInputs(prev => [
-            ...prev,
-            ...inputs.map(input => ({ folderId, input }))
-        ]);
-    };
-
-    const handleDeleteValue = (folderId, index) => {
-        setFolderInputs(prev =>
-            prev.filter((item, i) => !(item.folderId === folderId && i === index))
-        );
+        // dispatch(getFolder);
     };
 
     return (
@@ -105,42 +93,25 @@ const Sidemenu = ({ onShareClick }) => {
                             </form>
                         )}
 
-                        {folderInputs.filter(item => item.folderId === folder.id).length > 0 && (
-                            <div className="folder-values">
-                                {folderInputs.filter(item => item.folderId === folder.id).map((value, index) => (
-                                    <div key={index} className="folder-value">
-                                        <input
-                                            type="text"
-                                            className="folder-input"
-                                            value={value.input}
-                                            readOnly
-                                        />
-                                        <FontAwesomeIcon
-                                            icon={faTimes}
-                                            className="delete-icon"
-                                            onClick={() => handleDeleteValue(folder.id, index)}
-                                        />
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-
+                        {/* Only render the subfolder part */}
                         {folder.subFolders && folder.subFolders.length > 0 && (
                             <ul className="sub-folder-list">
                                 {folder.subFolders.map(subFolder => (
-                                    <li key={subFolder.id} className="sub-folder-item">
-                                        <input
-                                            type="text"
-                                            className="folder-input"
-                                            value={subFolder.FolderName}
-                                            readOnly
-                                        />
-                                        <FontAwesomeIcon
-                                            icon={faShareAlt}
-                                            className="fa fa-share-alt share-icon share"
-                                            onClick={() => onShareClick()} // This will trigger the function passed from the parent
-                                        />
-                                    </li>
+                                    <div className='sub-folder-value' key={subFolder.id}>
+                                        <li className="sub-folder-item">
+                                            <input
+                                                type="text"
+                                                className="folder-input"
+                                                value={subFolder.FolderName}
+                                                readOnly
+                                            />
+                                        </li>
+                                        <div className='subfolder-button'>
+                                            <button>Add Client</button>
+                                            <button>Upload Image</button>
+                                            <button>Show Image</button>
+                                        </div>
+                                    </div>
                                 ))}
                             </ul>
                         )}
@@ -150,6 +121,5 @@ const Sidemenu = ({ onShareClick }) => {
         </div>
     );
 };
-
 
 export default Sidemenu;
