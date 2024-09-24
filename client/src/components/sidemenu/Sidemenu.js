@@ -5,6 +5,8 @@ import { getFolder } from '../../actions/clientAction';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { addFolder } from '../../actions/folderAction';
+import { Link } from 'react-router-dom';
+import { showDashboard,showImageUploader,showImageViewer } from '../../actions/componentRenderAction';
 
 const Sidemenu = ({ onShareClick }) => {
     const dispatch = useDispatch();
@@ -107,9 +109,21 @@ const Sidemenu = ({ onShareClick }) => {
                                             />
                                         </li>
                                         <div className='subfolder-button'>
-                                            <button>Add Client</button>
-                                            <button>Upload Image</button>
-                                            <button>Show Image</button>
+                                            {/* <button >Add Client</button>
+                                            <button onClick={onShareClick}>Upload Image</button> */}
+                                            {/* <Link to='/addclientimage'>Add Client</Link>
+                                            <Link to='/uploadimage' >Add Image</Link>
+                                            <Link to='/showimage'>Show Image</Link> */}
+                                            {/* <button>Show Image</button> */}
+                                            <button onClick={() => dispatch(showDashboard())}>
+                                                Add Client
+                                            </button>
+                                            <button onClick={() => dispatch(showImageUploader())}>
+                                                Upload Image
+                                            </button>
+                                            <button onClick={() => dispatch(showImageViewer())}>
+                                                Show Image
+                                            </button>
                                         </div>
                                     </div>
                                 ))}

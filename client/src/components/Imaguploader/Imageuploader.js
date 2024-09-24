@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
-
+import React, { useState } from 'react';
+import './Imageuploader.css'; // Make sure to import the CSS
 
 const Imageuploader = () => {
-
     return (
-
-        <div>
+        <div className="image-uploader">
             <input
                 type="file"
                 accept="image/*"
-                multiple />
-            <button> Upload </button>
+                multiple
+                className="file-input"
+            />
+            <button className="upload-btn">Upload</button>
         </div>
     );
 };

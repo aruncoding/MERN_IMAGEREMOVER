@@ -6,6 +6,7 @@ import { combineReducers } from 'redux'; // Import combineReducers
 import { userReducer } from "./reducers/userReducer";
 import { clientReducer, clientfolderReducer } from "./reducers/clientReducer";
 import { createFolderReducer } from "./reducers/folderReducer";
+import componentRenderReducer from "./reducers/componentRenderReducer";
 
 // Combine all your reducers into a root reducer function
 const rootReducer = combineReducers({
@@ -13,13 +14,14 @@ const rootReducer = combineReducers({
   client: clientReducer,
   clientfolder: clientfolderReducer,
   createfolder: createFolderReducer,
+  component: componentRenderReducer
 });
 
 // Create a persist configuration
 const persistConfig = {
   key: 'root',
   storage, // Use localStorage to persist state
-  whitelist: ['user', 'client', 'clientfolder', 'createfolder'], // List of reducers you want to persist
+  whitelist: ['user', 'client', 'clientfolder', 'createfolder', 'component'], // List of reducers you want to persist
 };
 
 // Wrap the combined reducer with persistReducer

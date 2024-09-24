@@ -13,6 +13,7 @@ import SignOut from './components/user/SignOut';
 import Dashboard from './components/Dashboard/Dashboard';
 import './App.css';
 import MergeDashboardSidemenu from './components/Dashboard/MergeDashboardSideMenu';
+import Imageuploader from './components/Imaguploader/Imageuploader';
 const App = () => {
 
   const { error, isAuthenticated } = useSelector(
@@ -32,6 +33,7 @@ const App = () => {
         {/* <Route path="/dashboard" element={<Dashboard />} /> */}
         <Route path="/dashboard" element={<MergeDashboardSidemenu />} />
         <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/uploadimage" element={<Imageuploader />} />
         
         {/* <Route path="/sign-out" element={<SignOut onSignOut={handleSignOut} />} /> */}
       </Routes>

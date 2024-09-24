@@ -2,20 +2,27 @@ import React, { useState } from 'react';
 import Dashboard from './Dashboard';
 import Sidemenu from '../sidemenu/Sidemenu';
 import Imageuploader from '../Imaguploader/Imageuploader';// Assuming ImageUploader is imported
-
+import { useSelector } from 'react-redux';
+import ShowImage from '../ShowImage/ShowImage';
 const MergeDashboardSidemenu = () => {
-    const [showImageUploader, setShowImageUploader] = useState(false);
+    const currentComponent = useSelector((state) => state.component.currentComponent); // Access the component state
 
-    const handleShareClick = () => {
-        setShowImageUploader(true); // Show ImageUploader when share is clicked
+    const renderComponent = () => {
+        switch (currentComponent) {
+            case 'imageUploader':
+                return <Imageuploader />;
+            case 'showImage':
+                return <ShowImage />;
+            case 'dashboard':
+            default:
+                return <Dashboard />;
+        }
     };
 
     return (
         <div className="Merge-Dashboard-Sidemenu">
-            {/* Conditionally render Dashboard or ImageUploader */}
-            {showImageUploader ? <Imageuploader /> : <Dashboard />}
-            {/* Pass the handleShareClick function as a prop */}
-            <Sidemenu onShareClick={handleShareClick} />
+            {renderComponent()}
+            <Sidemenu />
         </div>
     );
 };

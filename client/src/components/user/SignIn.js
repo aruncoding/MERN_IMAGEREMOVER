@@ -5,6 +5,7 @@ import './SignIn.css';
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, login, register } from '../../actions/userAction';
 import { Link } from 'react-router-dom';
+import { showDashboard } from '../../actions/componentRenderAction';
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -41,6 +42,7 @@ const SignIn = () => {
   useEffect(() => {
     if (isAuthenticated) {
       navigate('/dashboard'); // Navigate to the dashboard when authentication is successful
+      dispatch(showDashboard())
     }
 
     if (error) {

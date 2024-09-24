@@ -24,7 +24,7 @@ const Dashboard = () => {
   console.log("isAuthenticatedisAuthenticated",isAuthenticated)
 
   return (
-    <div className="page dashboard-page">
+    <div className="dashboard dashboard-page">
       <h1>Dashboard</h1>
       <button className="open-modal-btn" onClick={toggleModal}>
         Open Modal

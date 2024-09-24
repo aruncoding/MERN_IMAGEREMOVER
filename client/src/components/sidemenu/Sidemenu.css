@@ -7,13 +7,14 @@ body {
     position: fixed;
     top: 70px;
     left: 0;
-    width: 18%;
+    width: 20%; /* Set this to 25% if you want it to exactly match the remaining width */
     max-height: calc(100vh - 70px); /* Set max height to fill the view minus the top bar */
     background-color: #1d111d18;
     overflow-y: auto; /* Enables vertical scrolling */
-    transition: width 0.3s ease; /* Removed height transition */
     display: flex;
     flex-direction: column;
+    justify-content: flex-start; /* Ensure the content starts from the top */
+    height: 100vh; /* Full height of the viewport */
 }
 
 .menu-bar.open {
@@ -40,10 +41,7 @@ body {
     padding: 0;
     margin: 0;
     transition: opacity 0.3s ease;
-}
-
-.menu-bar.open ul {
-    opacity: 1;
+    flex-grow: 1; /* Allows the content area to grow dynamically */
 }
 
 .menu-bar ul li {
