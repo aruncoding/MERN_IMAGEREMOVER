@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import './Imageuploader.css'; // Make sure to import the CSS
+import './Imageuploader.css';
 
-const Imageuploader = () => {
+const ImageUploader = () => {
     return (
         <div className="image-uploader">
+            <h2 className="uploader-title">Upload Your Images</h2>
             <input
                 type="file"
                 accept="image/*"
@@ -15,4 +16,4 @@ const Imageuploader = () => {
     );
 };
 
-export default Imageuploader;
+export default ImageUploader;

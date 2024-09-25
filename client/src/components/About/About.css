@@ -5,7 +5,6 @@
     background: url('/public/images/andrew-bui-z7rzbFHXym0-unsplash.jpg') no-repeat center center fixed;
     background-size: cover;
     color: white;
-    animation: fadeIn 1s ease-in;
   }
   
   @keyframes fadeIn {
