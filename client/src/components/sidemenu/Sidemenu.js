@@ -6,14 +6,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { addFolder } from '../../actions/folderAction';
 import { Link } from 'react-router-dom';
-import { showDashboard,showImageUploader,showImageViewer } from '../../actions/componentRenderAction';
+import { showDashboard, showImageUploader, showImageViewer } from '../../actions/componentRenderAction';
 
 const Sidemenu = ({ onShareClick }) => {
     const dispatch = useDispatch();
     const [isOpen, setIsOpen] = useState(false);
     const [activeFolders, setActiveFolders] = useState({});
     const { clientmade } = useSelector((state) => state.client);
-    const { folders,createfolder } = useSelector((state) => state.clientfolder);
+    const { folders, createfolder } = useSelector((state) => state.clientfolder);
     const { foldermade } = useSelector((state) => state.createfolder);
 
     useEffect(() => {
@@ -21,8 +21,8 @@ const Sidemenu = ({ onShareClick }) => {
             dispatch(getFolder());
             setActiveFolders({});
         }
-    }, [clientmade, foldermade,dispatch]);
-    console.log("foldermade",foldermade)
+    }, [clientmade, foldermade, dispatch]);
+    console.log("foldermade", foldermade)
     const toggleMenu = () => setIsOpen(!isOpen);
 
     const handleExpandClick = (folderId) => {
@@ -118,10 +118,10 @@ const Sidemenu = ({ onShareClick }) => {
                                             <button onClick={() => dispatch(showDashboard())}>
                                                 Add Client
                                             </button>
-                                            <button onClick={() => dispatch(showImageUploader())}>
+                                            <button onClick={() => dispatch(showImageUploader(folder.id, subFolder.id))}>
                                                 Upload Image
                                             </button>
-                                            <button onClick={() => dispatch(showImageViewer())}>
+                                            <button onClick={() => dispatch(showImageViewer(folder.id, subFolder.id))}>
                                                 Show Image
                                             </button>
                                         </div>

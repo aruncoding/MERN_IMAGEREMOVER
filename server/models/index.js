@@ -3,6 +3,7 @@ import { Sequelize } from "sequelize";
 import userModel from "../module/User/model/user.model.js";
 import folderModel from "../module/Dashboard/folder/model/folder.model.js";
 import clientModel from "../module/Dashboard/Client/model/client.model.js";
+import imageModel from "../module/ImageUpload/model/image.model.js";
 
 const sequelize = new Sequelize(
     connection.config.database,
@@ -27,6 +28,7 @@ db.sequelize = sequelize;
 db.user = userModel(sequelize, Sequelize);
 db.client = clientModel(sequelize, Sequelize);
 db.folder = folderModel(sequelize, Sequelize);
+db.image = imageModel(sequelize, Sequelize);
 
 // Ensure associations are set after model definitions
 Object.keys(db).forEach((modelName) => {

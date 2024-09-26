@@ -1,12 +1,13 @@
 import userRoutes from './module/user/routes/userRoutes.js'
 import clientRoutes from './module/Dashboard/Client/routes/clientRoutes.js';
 import folderRoutes from './module/Dashboard/folder/routes/folderRoutes.js'
-
+import imageRoutes from './module/ImageUpload/routes/imageRoutes.js'
 const registerRoutes = (app) => {
     // Register your routes here
     app.use('/api/users', userRoutes);
     app.use('/api/clients', clientRoutes);
     app.use('/api/folder', folderRoutes);
+    app.use('/api/image', imageRoutes);
   
     // Add any other routes similarly
   };

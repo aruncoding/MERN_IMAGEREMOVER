@@ -7,10 +7,12 @@ import { SHOW_DASHBOARD,
     type: SHOW_DASHBOARD,
 });
 
-export const showImageUploader = () => ({
+export const showImageUploader = (folderId, subFolderId) => ({
     type: SHOW_IMAGE_UPLOADER,
+    payload: { folderId, subFolderId },
 });
 
-export const showImageViewer = () => ({
+export const showImageViewer = (folderId, subFolderId) => ({
     type: SHOW_IMAGE_VIEWER,
+    payload: { folderId, subFolderId },
 });
