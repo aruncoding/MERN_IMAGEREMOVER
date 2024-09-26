@@ -10,17 +10,32 @@ const ImageUploader = () => {
         setSelectedFiles(event.target.files);
     };
 
-    const handleUpload = () => {
+    const handleUpload = async () => {
         if (selectedFiles) {
-            console.log('Folder ID:', selectedFolderId);
-            console.log('Subfolder ID:', selectedSubFolderId);
-            console.log('Files to upload:', selectedFiles);
-
-            // Here you would implement the actual image upload logic.
+            const formData = new FormData();
+            formData.append('folderId', selectedFolderId);
+            formData.append('subFolderId', selectedSubFolderId);
+    
+            for (let i = 0; i < selectedFiles.length; i++) {
+                formData.append('images', selectedFiles[i]);
+            }
+    
+            try {
+                const response = await fetch('http://localhost:8000/api/image/uploadimage', {
+                    method: 'POST',
+                    body: formData,
+                });
+    
+                const result = await response.json();
+                console.log(result.message);
+            } catch (error) {
+                console.error('Error uploading files:', error);
+            }
         } else {
             console.log('No files selected.');
         }
     };
+    
 
     return (
         <div className="image-uploader">
