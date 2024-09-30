@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import './Imageuploader.css';
-import { useSelector } from 'react-redux';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { uploadImage } from '../../actions/imageAction';
 const ImageUploader = () => {
+    const dispatch = useDispatch();
     const [selectedFiles, setSelectedFiles] = useState(null);
     const { selectedFolderId, selectedSubFolderId } = useSelector((state) => state.component);
 
@@ -19,15 +20,9 @@ const ImageUploader = () => {
             for (let i = 0; i < selectedFiles.length; i++) {
                 formData.append('images', selectedFiles[i]);
             }
-    
+            console.log("formdataaa",formData)
             try {
-                const response = await fetch('http://localhost:8000/api/image/uploadimage', {
-                    method: 'POST',
-                    body: formData,
-                });
-    
-                const result = await response.json();
-                console.log(result.message);
+                dispatch(uploadImage(formData));
             } catch (error) {
                 console.error('Error uploading files:', error);
             }

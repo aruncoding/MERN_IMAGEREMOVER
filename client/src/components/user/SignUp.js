@@ -6,7 +6,7 @@ import Dashboard from '../Dashboard/Dashboard';
 import { Link } from 'react-router-dom';
 import { register } from '../../actions/userAction';
 import { useDispatch, useSelector } from "react-redux";
-
+import { showDashboard } from '../../actions/componentRenderAction';
 const SignUp = () => {
   const dispatch = useDispatch();
   const { error, loading, isAuthenticated } = useSelector(
@@ -37,6 +37,7 @@ const SignUp = () => {
   useEffect(() => {
     if (isAuthenticated) {
       navigate('/dashboard'); // Navigate to the dashboard when authentication is successful
+      dispatch(showDashboard())
     }
   }, [isAuthenticated]);
   
