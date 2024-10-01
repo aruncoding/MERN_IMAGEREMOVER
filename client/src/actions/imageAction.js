@@ -21,7 +21,7 @@ export const uploadImage = (formData) => async (dispatch) => {
         const data = await response.json();
         console.log("image data", data);
         if (data.status === 'success') {
-            dispatch({ type: IMAGE_ADD_SUCCESS, payload: data.data });
+            dispatch({ type: IMAGE_ADD_SUCCESS, payload: data });
         } else {
             dispatch({ type: IMAGE_LOGIN_FAIL, payload: data.message });
         }

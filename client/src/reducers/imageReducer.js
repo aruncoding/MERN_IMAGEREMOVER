@@ -13,9 +13,10 @@ import {
     console.log("action.type",action.type);
     switch (action.type) {
         case IMAGE_ADD_REQUEST:
-        case IMAGE_ADD_SUCCESS:
+        case IMAGE_LOGIN_FAIL:
             return {
-              ...state
+              ...state,
+              imageAdded: false
             };
         case IMAGE_ADD_SUCCESS:
             return {
