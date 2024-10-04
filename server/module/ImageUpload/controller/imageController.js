@@ -20,7 +20,7 @@ class imageController {
             if (!files || files.length === 0) {
                 return res.status(400).json({ message: 'No files uploaded.' });
             }
-            console.log("dfdfdf",req)
+            console.log("dfdfdf", req)
             // Save all image information to the database
             const imageRecords = files.map(file => ({
                 folderId,
@@ -33,6 +33,42 @@ class imageController {
             await Image.bulkCreate(imageRecords);
 
             res.status(201).json({ status: 'success', data: imageRecords });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ status: 'Error uploading images.' });
+        }
+    }
+
+    static getImages = async (req, res) => {
+        const { folderId, subFolderId } = req.query;
+        try {
+
+            const token = await req.cookies.token;
+            if (!token) {
+                return res.status(403).send({ message: "No token provided!" });
+            }
+
+            const images = await Image.findAll({
+                where: {
+                    folderId: folderId || null,          // Use folderId from query
+                    createdBy: req.user.dataValues.id || null,        // Use createdBy from query
+                    isDeleted: false,                    // Filter where isDeleted is false
+                    subFolderId: subFolderId || null     // Use subFolderId from query
+                }
+            });
+
+            // Return the images if found
+            if (images.length > 0) {
+                res.status(200).json({
+                    status: 'success',
+                    images: images
+                });
+            } else {
+                res.status(404).json({
+                    status: 'fail',
+                    message: 'No images found with the given criteria.'
+                });
+            }
         } catch (error) {
             console.error(error);
             res.status(500).json({ status: 'Error uploading images.' });

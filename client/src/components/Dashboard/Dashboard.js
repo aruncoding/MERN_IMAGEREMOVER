@@ -25,9 +25,9 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard dashboard-page">
-      <h1>Dashboard</h1>
+      <h1>Add Client</h1>
       <button className="open-modal-btn" onClick={toggleModal}>
-        Open Modal
+        Add
       </button>
 
       {isModalOpen && <Modal closeModal={toggleModal} />}

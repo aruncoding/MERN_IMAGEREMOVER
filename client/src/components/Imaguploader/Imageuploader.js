@@ -45,7 +45,7 @@ const ImageUploader = () => {
         }
     }, [imageAdded, dispatch]);
     
-
+    console.log("images rednder",image)
     return (
         <div className="image-uploader">
             <h2 className="uploader-title">Upload Your Images</h2>

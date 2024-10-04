@@ -62,8 +62,6 @@ class ClientController {
                 attributes: ['id', 'FolderName', 'displayFolderName', 'fparentId', 'isRelease']
             });
     
-            console.log("folderfolders", folders);
-    
             // Send the response once
             return res.status(200).json({
                 code: 200,
