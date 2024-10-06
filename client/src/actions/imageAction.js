@@ -44,9 +44,13 @@ export const uploadImage = (formData) => async (dispatch) => {
         console.log("uploadimagess",data)
         if (data.status === 'success') {
             // Dispatch success action with the newly uploaded images
-            dispatch({ type: IMAGE_ADD_SUCCESS, payload: data }); // Assuming `data.images` is an array of images
+            // console.log("iffffff");
+            console.log("after api status uploadimage", data.status)
+            console.log("after api data uploadimage", data)
+            await dispatch({ type: IMAGE_ADD_SUCCESS, payload: data.data }); // Assuming `data.images` is an array of images
         } else {
             // Dispatch failure action if upload fails
+            // console.log("else")
             dispatch({ type: IMAGE_LOGIN_FAIL, payload: data.message });
         }
     } catch (error) {

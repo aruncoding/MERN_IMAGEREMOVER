@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Dashboard from './Dashboard';
 import Sidemenu from '../sidemenu/Sidemenu';
-import Imageuploader from '../Imaguploader/Imageuploader';// Assuming ImageUploader is imported
+import Imageuploader from '../Imaguploader/Imageuploader';
 import { useSelector } from 'react-redux';
+import './MergeDashboardSidemenu.css'; // Import the CSS here
 import ShowImage from '../ShowImage/ShowImage';
+
 const MergeDashboardSidemenu = () => {
     const currentComponent = useSelector((state) => state.component.currentComponent); // Access the component state
 
@@ -21,8 +23,8 @@ const MergeDashboardSidemenu = () => {
 
     return (
         <div className="Merge-Dashboard-Sidemenu">
-            {renderComponent()}
             <Sidemenu />
+            {renderComponent()}
         </div>
     );
 };

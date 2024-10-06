@@ -20,7 +20,7 @@ class imageController {
             if (!files || files.length === 0) {
                 return res.status(400).json({ message: 'No files uploaded.' });
             }
-            console.log("dfdfdf", req)
+            // console.log("dfdfdf", req)
             // Save all image information to the database
             const imageRecords = files.map(file => ({
                 folderId,
@@ -41,21 +41,31 @@ class imageController {
 
     static getImages = async (req, res) => {
         const { folderId, subFolderId } = req.query;
+        // const { folderId, subFolderId } = req.params;
+        console.log("folderId", folderId);
+        console.log("subFolderId", subFolderId);
         try {
+
+            // Validate if folderId and subFolderId are provided
+            if (!folderId || !subFolderId) {
+                return res.status(400).json({ message: "folderId and subFolderId are required!" });
+            }
 
             const token = await req.cookies.token;
             if (!token) {
                 return res.status(403).send({ message: "No token provided!" });
             }
-
+            console.log("created by", req.user.dataValues.id )
             const images = await Image.findAll({
                 where: {
                     folderId: folderId || null,          // Use folderId from query
+                    // createdBy: req.user.dataValues.id || null,        // Use createdBy from query
                     createdBy: req.user.dataValues.id || null,        // Use createdBy from query
                     isDeleted: false,                    // Filter where isDeleted is false
                     subFolderId: subFolderId || null     // Use subFolderId from query
                 }
             });
+            console.log("images on imageController get api", images)
 
             // Return the images if found
             if (images.length > 0) {

@@ -124,7 +124,7 @@ class UserController {
 
     static logoutUser = async (req,res) => {
         const logout = await res.clearCookie('token', { path: '/'})
-        console.log("logout",logout);
+        // console.log("logout",logout);
         if(logout){
             res.send({ "status": "success", "message": "Logout Successfully" })
         }else{

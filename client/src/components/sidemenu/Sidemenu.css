@@ -1,24 +1,18 @@
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-}
 
 .menu-bar {
     position: fixed;
     top: 70px;
     left: 0;
-    width: 20%; /* Set this to 25% if you want it to exactly match the remaining width */
-    max-height: calc(100vh - 70px); /* Set max height to fill the view minus the top bar */
+    width: 20%; /* Sidemenu now takes 20% of the width */
+    height: 100vh; /* Full height of the viewport */
     background-color: #1d111d18;
     overflow-y: auto; /* Enables vertical scrolling */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* Ensure the content starts from the top */
-    height: 100vh; /* Full height of the viewport */
+    z-index: 2; /* Ensures it stays on top of the content */
+    transition: width 0.3s ease; /* Smooth transition for toggling */
 }
 
 .menu-bar.open {
-    width: 250px;
+    width: 250px; /* Optional: Expand width when menu is toggled open */
 }
 
 .menu-toggle {
@@ -131,37 +125,18 @@ body {
 /* Responsive design adjustments */
 @media (max-width: 1024px) {
     .menu-bar {
-        width: 15%;
-        max-height: calc(90vh - 70px); /* Adjust max height for tablets and small desktops */
-    }
-
-    .menu-bar.open {
-        width: 220px;
+        width: 25%; /* Adjust for tablet-sized screens */
     }
 }
 
 @media (max-width: 768px) {
     .menu-bar {
-        width: 12%;
-        max-height: calc(80vh - 70px); /* Further reduced height for tablets */
-    }
-
-    .menu-bar.open {
-        width: 200px;
+        width: 30%; /* Adjust for smaller tablet screens */
     }
 }
 
 @media (max-width: 480px) {
     .menu-bar {
-        width: 8%;
-        max-height: calc(70vh - 70px); /* Further reduced height for mobile phones */
-    }
-
-    .menu-bar.open {
-        width: 150px;
-    }
-
-    .folder-input {
-        width: calc(100% - 20px);
+        width: 40%; /* Adjust for mobile screens */
     }
 }

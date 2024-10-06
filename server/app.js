@@ -24,13 +24,13 @@ app.use(cors({
 registerRoutes(app);
 
 // Sync Sequelize models
-db.sequelize.sync()
-  .then(() => {
-    console.log("Synced db success...");
-  })
-  .catch((err) => {
-    console.log("Failed to sync db...: " + err.message);
-  });
+// db.sequelize.sync()
+//   .then(() => {
+//     console.log("Synced db success...");
+//   })
+//   .catch((err) => {
+//     console.log("Failed to sync db...: " + err.message);
+//   });
   /* to alter any table run below sync */
   // db.sequelize.sync({alter : true})
   //   .then(() => {

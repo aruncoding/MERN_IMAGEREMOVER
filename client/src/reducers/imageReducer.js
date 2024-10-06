@@ -8,8 +8,10 @@ import {
 } from "../constants/imageConstants";
 
 export const ImageReducer = (state = { images: [], imageAdded: false }, action) => {
-    console.log("reducerforimage", state);
-    console.log("action.type", action.type);
+    // console.log("reducerforimage111", state);
+    // console.log("action.type", action.type);
+    // console.log("action.payload", action.payload);
+    console.log("come to check which action type call on image reducer", action.type)
     switch (action.type) {
         case IMAGE_ADD_REQUEST:
         case IMAGE_LOGIN_FAIL:

@@ -25,6 +25,7 @@ const ImageUploader = () => {
             }
             console.log("formdataaa",formData)
             try {
+                console.log("image dispatch call step-1")
                 dispatch(uploadImage(formData));
             } catch (error) {
                 console.error('Error uploading files:', error);
@@ -35,7 +36,9 @@ const ImageUploader = () => {
     };
 
      // Hide the message after a few seconds when image is successfully added
+     console.log("after api successfully call does state of imageAdded changes",imageAdded)
      useEffect(() => {
+        console.log("useEffect imageAdded",imageAdded)
         if (imageAdded) {
             const timer = setTimeout(() => {
                 dispatch({ type: IMAGE_ADD_REQUEST }); 
@@ -45,7 +48,7 @@ const ImageUploader = () => {
         }
     }, [imageAdded, dispatch]);
     
-    console.log("images rednder",image)
+    // console.log("images rednder",image)
     return (
         <div className="image-uploader">
             <h2 className="uploader-title">Upload Your Images</h2>

@@ -1,0 +1,46 @@
+/* Flex container for dashboard with no overflow */
+.Merge-Dashboard-Sidemenu {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100vh; /* Full viewport height */
+    overflow: hidden; /* Prevent external scrolling */
+    box-sizing: border-box; /* Include padding and border in element’s total width and height */
+}
+
+/* Image gallery with dynamic width and scrollable content */
+.Merge-Dashboard-Sidemenu .image-gallery {
+    flex-grow: 1; /* Automatically grow to fill remaining space */
+    margin-left: 20%; /* Adjust to sit next to the sidebar */
+    padding: 20px;
+    overflow-y: auto; /* Allow scrolling when content exceeds height */
+    height: 100%; /* Full height inside the container */
+    box-sizing: border-box; /* Ensure padding doesn't cause overflow */
+}
+
+/* Adjustments for different screen sizes */
+@media (max-width: 1024px) {
+    .Merge-Dashboard-Sidemenu .image-gallery {
+        margin-left: 25%; /* Adjust based on Sidemenu width */
+    }
+}
+
+@media (max-width: 768px) {
+    .Merge-Dashboard-Sidemenu .image-gallery {
+        margin-left: 30%; /* Adjust based on Sidemenu width */
+    }
+}
+
+@media (max-width: 480px) {
+    .Merge-Dashboard-Sidemenu .image-gallery {
+        margin-left: 40%; /* Adjust based on Sidemenu width */
+    }
+}
+
+/* Global reset for body and html to prevent external scrolling */
+html, body {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    /* overflow: hidden;  */
+}

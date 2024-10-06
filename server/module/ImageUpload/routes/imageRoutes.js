@@ -9,6 +9,6 @@ router.use('/getimages', checkUserAuth)
 // router.use('/login', checkUserAuth)
 
 router.post('/uploadimage', uploadMultiple,imageController.uploadImages)
-router.get('/getimages/:folderId/:subFolderId',imageController.getImages)
+router.get('/getimages/',imageController.getImages)
 
 export default router;
