@@ -8,6 +8,8 @@ import db from './models/index.js'
 import bodyParser from 'body-parser';
 import registerRoutes from './registerRoutes.js';
 import cookieParser from 'cookie-parser';
+import { fileURLToPath } from 'url';
+import path, { dirname, join } from 'path'; 
 
 const app = express()
 const port = process.env.PORT || 5000;
@@ -38,6 +40,16 @@ registerRoutes(app);
   //   }).catch((err) => {
   //     console.log("Failed to sync db...", err.message)
   //   });
+
+// File URL setup
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Serve static files from the uploads directory
+const uploadsDir = join(__dirname, 'uploads'); // Define the path to the uploads directory
+console.log("Serving static files from:", uploadsDir);
+
+app.use('/uploads', express.static(uploadsDir));
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

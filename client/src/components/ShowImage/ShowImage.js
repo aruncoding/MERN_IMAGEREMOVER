@@ -17,6 +17,7 @@ const ShowImage = () => {
   }, [dispatch, selectedFolderId, selectedSubFolderId]);
 
   const images = useSelector((state) => state.image.images || []);
+  console.log("images ShowImage",images)
 
   if (!images || images.length === 0) {
     return <div className="no-images">No images to display</div>;
@@ -50,11 +51,18 @@ const ShowImage = () => {
         {currentImages.map((image, index) => (
           <img
             key={index}
-            src={image.filePath}
+            src={`http://localhost:8000/${image.filePath}`}
             alt={`img-${index}`}
             className="thumbnail"
             onClick={() => handleImageClick(index + (currentPage - 1) * imagesPerPage)}
           />
+          // <img
+          //   key={index}
+          //   src={`http://localhost:8000/uploads/1728323724562-shahin-khalaji-TPWaXxLfL4A-unsplash.jpg`}
+          //   alt={`img-${index}`}
+          //   className="thumbnail"
+          //   onClick={() => handleImageClick(index + (currentPage - 1) * imagesPerPage)}
+          // />
         ))}
       </div>
 
