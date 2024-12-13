@@ -15,7 +15,7 @@ const shainkeydetailsModel = (sequelize, Sequelize) => {
             allowNull: true
         },
         Designation: {
-            type: Sequelize.BIGINT,
+            type: Sequelize.STRING(255),
             allowNull: true
         },
         isActive: {
@@ -48,12 +48,8 @@ const shainkeydetailsModel = (sequelize, Sequelize) => {
             onDelete: 'RESTRICT',
             onUpdate: 'CASCADE'
         },
-    }, {
-        timestamps: true,  // Automatically manage createdAt and updatedAt
-        tableName: 'client',  // Specify the table name
-        charset: 'utf8mb4',  // Character set
-        collate: 'utf8mb4_0900_ai_ci',  // Collation
-    });
+    }, 
+);
 
     // Associations
     // Client.associate = function(models) {

@@ -24,13 +24,20 @@ app.use(cors({
 registerRoutes(app);
 
 // Sync Sequelize models
-db.sequelize.sync()
-  .then(() => {
-    console.log("Synced db success...");
-  })
-  .catch((err) => {
-    console.log("Failed to sync db...: " + err.message);
-  });
+// db.sequelize.sync()
+//   .then(() => {
+//     console.log("Synced db success...");
+//   })
+//   .catch((err) => {
+//     console.log("Failed to sync db...: " + err.message);
+//   });
+
+db.sequelize.sync({alter : true})
+    .then(() => {
+      console.log("Synced db success...");
+    }).catch((err) => {
+      console.log("Failed to sync db...", err.message)
+    });
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
