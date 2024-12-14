@@ -15,7 +15,7 @@ const port = process.env.PORT || 5000;
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(cors({
-  origin: 'http://localhost:3001', // Replace this with your frontend origin
+  origin: 'http://localhost:4200', // Replace this with your frontend origin
   credentials: true,               // Allow credentials (cookies)
 }));
 

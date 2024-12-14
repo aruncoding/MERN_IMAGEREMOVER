@@ -41,10 +41,10 @@ const shainkeydetailsModel = (sequelize, Sequelize) => {
         createdBy: {
             type: Sequelize.INTEGER,
             allowNull: false,
-            references: {
-                model: 'users', // Foreign key reference to the 'user' model
-                key: 'id'
-            },
+            // references: {
+            //     model: 'users', // Foreign key reference to the 'user' model
+            //     key: 'id'
+            // },
             onDelete: 'RESTRICT',
             onUpdate: 'CASCADE'
         },
